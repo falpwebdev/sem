@@ -1,0 +1,1 @@
+SELECT COUNT(id) FROM words WHERE (SELECT COUNT(words.word))>1
