@@ -8,7 +8,7 @@ function check_notification(){
 			if(response > 0){
 				document.getElementById('badge_notification').innerHTML=response;
 			}else{
-				document.getElementById('badge_notification').innerHTML='';
+				document.getElementById('badge_notification').innerHTML=''; 
 			}
 		}
 	};
@@ -128,7 +128,7 @@ function check_completed_refresh(){
 	xhttp.send();
 }
 function check_incomplete_refresh(){
-	get_notifications();
+	// get_notifications();
 	var xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function(){
 		if (this.readyState == 4 && this.status == 200){
@@ -143,14 +143,14 @@ function check_incomplete_refresh(){
 	xhttp.open("GET", "AJAX/realtime_notification.php?operation=incomplete_refresh", true);
 	xhttp.send();
 }
-function get_notifications(){
-	var xhttp = new XMLHttpRequest();
-	xhttp.onreadystatechange = function(){
-		if (this.readyState == 4 && this.status == 200){
-			var response = this.responseText;
-				document.getElementById('content_page_notification').innerHTML=response;
-		}
-	};
-	xhttp.open("GET", "AJAX/realtime_notification.php?operation=get_notification_content", true);
-	xhttp.send();
-}
+// function get_notifications(){
+// 	var xhttp = new XMLHttpRequest();
+// 	xhttp.onreadystatechange = function(){
+// 		if (this.readyState == 4 && this.status == 200){
+// 			var response = this.responseText;
+// 				document.getElementById('content_page_notification').innerHTML=response;
+// 		}
+// 	};
+// 	xhttp.open("GET", "AJAX/realtime_notification.php?operation=get_notification_content", true);
+// 	xhttp.send();
+// }

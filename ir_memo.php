@@ -5,7 +5,7 @@
 		header("location:index.php");
 	}
 ?>
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 <head>
 	<meta charset="utf-8">
@@ -116,6 +116,7 @@
 		</div>
 	</div>
 <script>
+	
 	<!-- To Display Data in the Table -->
 	search_all();
 	year_filter();

@@ -2,8 +2,12 @@
 include '../Connection/Connect.php';
 $operation = mysqli_real_escape_string($conn, $_GET['operation']);
 if($operation == "returned"){
-	$date_today = date("Y-m-d");
-	$sql = "SELECT date_returned FROM ir_memo WHERE date_returned = '$date_today'";
+	$date_today = date('Y-m-d');
+	$date_end = explode('-',$date_today);
+	// CONSTRUCT END DATE (1 DAY INTERVAL)
+	$construct = $date_end[0].'-'.$date_end[1].'-'.($date_end[2] + 1);
+	// QUERY
+	$sql = "SELECT date_returned FROM ir_memo WHERE date_returned >= '$date_today' AND date_returned <= '$construct'";
 	$result = $conn->query($sql);
 	if ($result->num_rows > 0){
 		$rowcount=mysqli_num_rows($result);
@@ -76,7 +80,7 @@ else if($operation == "incomplete_refresh"){
 }
 else if($operation == "get_notification_content"){
 	$date_today = date("Y-m-d");
-	$sql = "SELECT id, id_no, name, date_returned FROM ir_memo WHERE date_returned = '$date_today'";
+	$sql = "SELECT id, id_no, name, date_returned FROM ir_memo WHERE date_returned <= '$date_today'";
 	$result = $conn->query($sql);
 	if ($result->num_rows > 0){
 		$rowcount=mysqli_num_rows($result);

@@ -61,13 +61,23 @@
 				</div>
 			</li>
 			<!-- End Navigation for Refresh Training -->
-			<li class="nav-item dropdown" id="notification_page">
+			<!-- <li class="nav-item dropdown" id="notification_page">
 				<a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-bell"></i> Notification <span class="badge badge-danger" id="badge_notification"></span></a>
 				<div class="dropdown-menu dropdown-primary default-color" aria-labelledby="navbarDropdownMenuLink" style="width:500px;">
 					<div id="content_page_notification">
 					</div>
 				</div>
+			</li> -->
+
+			<!-- NEW NOTIFICATION NAVIGATION LINK -->
+			<li id="notification_page" class="nav-item">
+				<a class="nav-link" href="sem_return_notif.php" id=""> <i class="fas fa-bell"></i> Notification
+					<span class="badge badge-danger" id="badge_notification"></span>
+				</a>
 			</li>
+
+
+
 			<li class="nav-item dropdown">
 				<a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-cog"></i> Settings</a>
 				<div class="dropdown-menu dropdown-primary default-color" aria-labelledby="navbarDropdownMenuLink" style="width:200px;">

@@ -25,6 +25,11 @@
 	<link href="css/style.css" rel="stylesheet">
 	<!-- My CSS -->
 	<link href="mycss/style1.css" rel="stylesheet">
+	<style>
+		.view img{
+			opacity:0.4;
+		}
+	</style>
 </head>
 <body class="bg">
 	<?php
