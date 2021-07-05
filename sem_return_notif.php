@@ -25,16 +25,17 @@
     <?php include 'Nav/header.php';?>
 
     <div class="row mt-4">
-        <div class="col-sm-12">
+        <div class="col sm-12">
             <h5 class="d-flex justify-content-center" id="page_header_select" style="font-weight:bold;">--</h5>
             <button class="btn btn-sm btn-blue" onclick="for_return()">For Return</button>
             <button class="btn btn-sm btn-red" onclick="not_returned_emp()">Not Yet Returned</button>
-            <button class="btn btn-sm btn-green" >Returned</button>
+            <button class="btn btn-sm btn-green" onclick="returned()">Returned</button>
             <input type="text" name="" class="mt-1 mr-1" id="search_notif" placeholder="Search" style="float:right;padding:5px;">
-        </div>
-        <!-- TABLE DATA -->
-        <div class="col sm-12">
-            <table class="table table-bordered">
+
+            
+            <!-- TABLE DATA -->
+        <div class="col sm-12 container" style="height:450px;overflow:auto;">
+            <table class="table table-bordered" style="width:2000px;">
                 <thead class="blue-grey lighten-4">
                     <th>ID #</th>
                     <th>Name</th>
@@ -50,10 +51,14 @@
                     <th>Process</th>
                     <th>Details</th>
                     <th>Remarks</th>
+                    <th>Return Status</th>
+                    <th>Return Remarks</th>
                 </thead>
                 <tbody id="return_table"></tbody>
             </table>
         </div>
+        </div>
+        
     </div>
 
 
@@ -94,10 +99,25 @@ function not_returned_emp(){
         data:{
             method: 'not_returned_employees'
         },success:function(response){
-            console.log(response);
+            // console.log(response);
             document.querySelector('#page_header_select').innerHTML = 'NOT RETURNED EMPLOYEES';
+            document.querySelector('#return_table').innerHTML = response;
         }
-    })
+    });
+}
+
+function returned(){
+    $.ajax({
+        url: 'AJAX/return_function.php',
+        type: 'POST',
+        cache: false,
+        data:{
+            method: 'returned'
+        },success:function(response){
+            document.querySelector('#page_header_select').innerHTML = 'RETURNED EMPLOYEES';
+            document.querySelector('#return_table').innerHTML = response;
+        }
+    });
 }
 
 
