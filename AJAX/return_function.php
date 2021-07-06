@@ -7,7 +7,7 @@ if($method == 'for_return_employees'){
 	// CONSTRUCT END DATE (1 DAY INTERVAL)
 	$construct = $date_end[0].'-'.$date_end[1].'-'.($date_end[2] + 1);
 	// QUERY
-	$sql = "SELECT * FROM ir_memo WHERE date_returned >= '$date_today' AND date_returned <= '$construct' AND return_status = ''";
+	$sql = "SELECT * FROM ir_memo WHERE date_returned >= '$date_today' AND date_returned <= '$construct' AND date_report_tc = ''";
     $stmt = $conn->prepare($sql);
     $stmt->execute();
     $c = 0;
@@ -23,7 +23,6 @@ if($method == 'for_return_employees'){
             .$row['violation'].'~!~'
             .$row['details'].'~!~'
             .$row['remarks'].'~!~'
-            .$row['return_status'].'~!~'
             .$row['return_remarks'].'~!~'.
             'for_return'.
             '&quot;)" style="cursor:pointer;">';
@@ -42,7 +41,7 @@ if($method == 'for_return_employees'){
             echo '<td>'.$row['process_final_initial'].'</td>';
             echo '<td>'.$row['details'].'</td>';
             echo '<td>'.$row['remarks'].'</td>';
-            echo '<td>'.$row['return_status'].'</td>';
+            echo '<td style="background-color:blue;color:white;">FOR RETURN</td>';
             echo '<td>'.$row['return_remarks'].'</td>';
             echo '</tr>';
         }
@@ -54,7 +53,7 @@ if($method == 'for_return_employees'){
 }
 
 if($method == 'not_returned_employees'){
-    $sql = "SELECT *FROM ir_memo WHERE  date_report_tc = ''";
+    $sql = "SELECT *FROM ir_memo WHERE date_returned <= '$date_today' AND date_report_tc = ''";
     $stmt = $conn->prepare($sql);
     $stmt->execute();
     $c = 0;
@@ -69,7 +68,7 @@ if($method == 'not_returned_employees'){
             .$row['violation'].'~!~'
             .$row['details'].'~!~'
             .$row['remarks'].'~!~'
-            .$row['return_status'].'~!~'
+            // .$row['return_status'].'~!~'
             .$row['return_remarks'].'~!~'.
             'not_return'.
             '&quot;)" style="cursor:pointer;">';
@@ -88,7 +87,7 @@ if($method == 'not_returned_employees'){
             echo '<td>'.$row['process_final_initial'].'</td>';
             echo '<td>'.$row['details'].'</td>';
             echo '<td>'.$row['remarks'].'</td>';
-            echo '<td>'.$row['return_status'].'</td>';
+            echo '<td style="background-color:red;color:white;">NOT YET REPORTED</td>';
             echo '<td>'.$row['return_remarks'].'</td>';
             echo '</tr>';
         }
@@ -115,7 +114,7 @@ if($method == 'returned'){
             .$row['violation'].'~!~'
             .$row['details'].'~!~'
             .$row['remarks'].'~!~'
-            .$row['return_status'].'~!~'
+            // .$row['return_status'].'~!~'
             .$row['return_remarks'].'~!~'.
             'returned'.
             '&quot;)" style="cursor:pointer;">';
@@ -134,7 +133,7 @@ if($method == 'returned'){
             echo '<td>'.$row['process_final_initial'].'</td>';
             echo '<td>'.$row['details'].'</td>';
             echo '<td>'.$row['remarks'].'</td>';
-            echo '<td>'.$row['return_status'].'</td>';
+            echo '<td style="background-color:green;color:white;">ALREADY RETURN</td>';
             echo '<td>'.$row['return_remarks'].'</td>';
             echo '</tr>';
         }

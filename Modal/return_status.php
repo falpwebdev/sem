@@ -13,29 +13,29 @@
                 <!-- <div class="md-form mb-0 col-sm-7"> 
                     <input type="text" name="" id="employeeID" disabled>
                 </div> -->
-                <table class="table" style="font-size:12px;">
+                <table class="table" style="font-size:10px;">
                     <tr>
-                        <td>EMPLOYEE ID:</td>
+                        <td style="font-weight:bold;">EMPLOYEE ID:</td>
                         <td id="employeeID"></td>
                     </tr>
                     <tr>
-                        <td>NAME:</td>
+                        <td style="font-weight:bold;">NAME:</td>
                         <td id="empName"></td>
                     </tr>
                     <tr>
-                        <td>VIOLATION:</td>
+                        <td style="font-weight:bold;">VIOLATION:</td>
                         <td id="violation"></td>
                     </tr>
                     <tr>
-                        <td>DETAILS:</td>
+                        <td style="font-weight:bold;">DETAILS:</td>
                         <td id="details"></td>
                     </tr>
                     <tr>
-                        <td>VIOLATION REMARKS:</td>
+                        <td style="font-weight:bold;">VIOLATION REMARKS:</td>
                         <td id="remarks"></td>
                     </tr>
                     <tr>
-                        <td>RETURN STATUS:</td>
+                        <td style="font-weight:bold;">RETURN STATUS:</td>
                         <td>
                            <select name="" id="return_status" class="browser-default form-control">
                                 <option value="">--SELECT STATUS--</option>
@@ -45,7 +45,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>RETURN REMARKS:</td>
+                        <td style="font-weight:bold;">RETURN REMARKS:</td>
                         <td>
                             <input type="text" name="" id="return_remarks" class="form-control" placeholder="Input returning remarks..">
                         </td>

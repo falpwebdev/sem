@@ -138,8 +138,8 @@ function open_on_modal(x){
     document.querySelector('#details').innerHTML = data[4];
     document.querySelector('#remarks').innerHTML = data[5];
     document.querySelector('#return_status').value = data[6];
-    document.querySelector('#return_remarks').value = data[7];
-    document.querySelector('#dataLoad').value = data[8];
+    // document.querySelector('#return_remarks').value = data[7];
+    document.querySelector('#dataLoad').value = data[7];
 
 }
 
