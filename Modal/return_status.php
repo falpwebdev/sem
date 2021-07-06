@@ -35,16 +35,6 @@
                         <td id="remarks"></td>
                     </tr>
                     <tr>
-                        <td style="font-weight:bold;">RETURN STATUS:</td>
-                        <td>
-                           <select name="" id="return_status" class="browser-default form-control">
-                                <option value="">--SELECT STATUS--</option>
-                                <option value="0">DID NOT RETURN</option>
-                                <option value="1">RETURNED</option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
                         <td style="font-weight:bold;">RETURN REMARKS:</td>
                         <td>
                             <input type="text" name="" id="return_remarks" class="form-control" placeholder="Input returning remarks..">

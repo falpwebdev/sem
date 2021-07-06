@@ -5,9 +5,11 @@ $date_today = date('Y-m-d');
 if($method == 'for_return_employees'){
     $date_end = explode('-',$date_today);
 	// CONSTRUCT END DATE (1 DAY INTERVAL)
-	$construct = $date_end[0].'-'.$date_end[1].'-'.($date_end[2] + 1);
+    
+	$construct = $date_end[0].'-'.$date_end[1].'-0'.($date_end[2] + 1);
+    
 	// QUERY
-	$sql = "SELECT * FROM ir_memo WHERE date_returned >= '$date_today' AND date_returned <= '$construct' AND date_report_tc = ''";
+	$sql = "SELECT * FROM ir_memo WHERE date_returned >= '$date_today' AND date_returned <= DATE_ADD('$date_today',INTERVAL 1 DAY) AND date_report_tc = '' ORDER BY id DESC";
     $stmt = $conn->prepare($sql);
     $stmt->execute();
     $c = 0;
@@ -53,7 +55,7 @@ if($method == 'for_return_employees'){
 }
 
 if($method == 'not_returned_employees'){
-    $sql = "SELECT *FROM ir_memo WHERE date_returned <= '$date_today' AND date_report_tc = ''";
+    $sql = "SELECT *FROM ir_memo WHERE date_returned <= '$date_today' AND date_report_tc = '' ORDER BY id DESC";
     $stmt = $conn->prepare($sql);
     $stmt->execute();
     $c = 0;
@@ -99,7 +101,7 @@ if($method == 'not_returned_employees'){
 }
 
 if($method == 'returned'){
-    $sql = "SELECT *FROM ir_memo WHERE date_report_tc != ''";
+    $sql = "SELECT *FROM ir_memo WHERE date_report_tc != '' ORDER BY id DESC";
     $stmt = $conn->prepare($sql);
     $stmt->execute();
     $c = 0;
@@ -148,10 +150,9 @@ if($method == 'returned'){
 if($method == 'update_return_status'){
     // VARIABLES
     $record_id = $_POST['rec_id'];
-    $return_status = $_POST['return_status'];
     $return_remarks = $_POST['return_remarks'];
     // QUERY 
-    $updateQL = "UPDATE ir_memo SET return_status = '$return_status', return_remarks = '$return_remarks' WHERE id = '$record_id'";
+    $updateQL = "UPDATE ir_memo SET  return_remarks = '$return_remarks' WHERE id = '$record_id'";
     $stmt = $conn->prepare($updateQL);
     if($stmt->execute()){
         echo 'success';

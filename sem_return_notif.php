@@ -137,8 +137,8 @@ function open_on_modal(x){
     document.querySelector('#violation').innerHTML = data[3];
     document.querySelector('#details').innerHTML = data[4];
     document.querySelector('#remarks').innerHTML = data[5];
-    document.querySelector('#return_status').value = data[6];
-    // document.querySelector('#return_remarks').value = data[7];
+    // document.querySelector('#return_status').value = data[6];
+    document.querySelector('#return_remarks').value = data[6];
     document.querySelector('#dataLoad').value = data[7];
 
 }
@@ -147,12 +147,9 @@ function update_return(){
     // VARIABLES
     var dataLoad = $('#dataLoad').val();
     var recID = $('#recID').val();
-    var return_status = $('#return_status').val();
     var return_remarks = $('#return_remarks').val();
-    if(return_status == ''){
+    if(return_remarks == ''){
         swal('PLEASE CHOOSE RETURN STATUS!','','info');
-    }else if(return_remarks == ''){
-        swal('PLEASE CHOOSE RETURN REMARKS!','','info');
     }else{
         // AJAX
         $.ajax({
@@ -162,7 +159,6 @@ function update_return(){
             data:{
                 method: 'update_return_status',
                 rec_id:recID,
-                return_status:return_status,
                 return_remarks:return_remarks
             },success:function(response){
                 if(response == 'success'){
