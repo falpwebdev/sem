@@ -54,7 +54,7 @@ if($method == 'for_return_employees'){
 }
 
 if($method == 'not_returned_employees'){
-    $sql = "SELECT *FROM ir_memo WHERE return_status = '0' OR return_status = '' ";
+    $sql = "SELECT *FROM ir_memo WHERE  date_report_tc = ''";
     $stmt = $conn->prepare($sql);
     $stmt->execute();
     $c = 0;
@@ -100,7 +100,7 @@ if($method == 'not_returned_employees'){
 }
 
 if($method == 'returned'){
-    $sql = "SELECT *FROM ir_memo WHERE return_status = '1'";
+    $sql = "SELECT *FROM ir_memo WHERE date_report_tc != ''";
     $stmt = $conn->prepare($sql);
     $stmt->execute();
     $c = 0;
