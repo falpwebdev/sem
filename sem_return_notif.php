@@ -4,7 +4,7 @@
     if($username_session == ''){
         header('location:index.php');
     }
-
+    include 'Modal/return_status.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -37,6 +37,7 @@
         <div class="col sm-12 container" style="height:450px;overflow:auto;">
             <table class="table table-bordered" style="width:2000px;">
                 <thead class="blue-grey lighten-4">
+                    <th>#</th>
                     <th>ID #</th>
                     <th>Name</th>
                     <th>Category</th>
@@ -70,11 +71,18 @@
 <script type="text/javascript" src="myjs/nav.js"></script>
 <script type="text/javascript" src="myjs/realtime_notification.js"></script>
 <script type="text/javascript" src="myjs/notification_content.js"></script>
+<script src="node_modules/sweetalert/dist/sweetalert.min.js"></script>
 
 <!-- PAGE FUNCTIONS -->
 <script type="text/javascript">
 $(document).ready(function(){
     for_return();
+    $("#search_notif").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#return_table tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
 });
 function for_return(){
     $.ajax({
@@ -119,6 +127,69 @@ function returned(){
         }
     });
 }
+
+function open_on_modal(x){
+    $('#update_return_status').modal('toggle');
+    var data = x.split('~!~');
+    document.querySelector('#recID').value = data[0];
+    document.querySelector('#employeeID').innerHTML = data[1];
+    document.querySelector('#empName').innerHTML = data[2];
+    document.querySelector('#violation').innerHTML = data[3];
+    document.querySelector('#details').innerHTML = data[4];
+    document.querySelector('#remarks').innerHTML = data[5];
+    document.querySelector('#return_status').value = data[6];
+    document.querySelector('#return_remarks').value = data[7];
+    document.querySelector('#dataLoad').value = data[8];
+
+}
+
+function update_return(){
+    // VARIABLES
+    var dataLoad = $('#dataLoad').val();
+    var recID = $('#recID').val();
+    var return_status = $('#return_status').val();
+    var return_remarks = $('#return_remarks').val();
+    if(return_status == ''){
+        swal('PLEASE CHOOSE RETURN STATUS!','','info');
+    }else if(return_remarks == ''){
+        swal('PLEASE CHOOSE RETURN REMARKS!','','info');
+    }else{
+        // AJAX
+        $.ajax({
+            url:'AJAX/return_function.php',
+            type: 'POST',
+            cache: false,
+            data:{
+                method: 'update_return_status',
+                rec_id:recID,
+                return_status:return_status,
+                return_remarks:return_remarks
+            },success:function(response){
+                if(response == 'success'){
+                    if(dataLoad == 'for_return'){
+                        for_return();
+                        swal('UPDATED!','','success');
+                        $('#update_return_status').modal('toggle');
+                    }
+                    if(dataLoad == 'not_return'){
+                        not_returned_emp();
+                        swal('UPDATED!','','success');
+                        $('#update_return_status').modal('toggle');
+                    }
+                    if(dataLoad == 'returned'){
+                        returned();
+                        swal('UPDATED!','','success');
+                        $('#update_return_status').modal('toggle');
+                    }
+                }else{
+                    swal('ERROR!','','error');
+                }
+            }
+        });
+    }
+}
+
+
 
 
 </script>

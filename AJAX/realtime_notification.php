@@ -7,7 +7,7 @@ if($operation == "returned"){
 	// CONSTRUCT END DATE (1 DAY INTERVAL)
 	$construct = $date_end[0].'-'.$date_end[1].'-'.($date_end[2] + 1);
 	// QUERY
-	$sql = "SELECT date_returned FROM ir_memo WHERE date_returned >= '$date_today' AND date_returned <= '$construct'";
+	$sql = "SELECT date_returned FROM ir_memo WHERE date_returned >= '$date_today' AND date_returned <= '$construct' AND return_status = ''";
 	$result = $conn->query($sql);
 	if ($result->num_rows > 0){
 		$rowcount=mysqli_num_rows($result);

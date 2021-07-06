@@ -7,13 +7,27 @@ if($method == 'for_return_employees'){
 	// CONSTRUCT END DATE (1 DAY INTERVAL)
 	$construct = $date_end[0].'-'.$date_end[1].'-'.($date_end[2] + 1);
 	// QUERY
-	$sql = "SELECT * FROM ir_memo WHERE date_returned >= '$date_today' AND date_returned <= '$construct'";
+	$sql = "SELECT * FROM ir_memo WHERE date_returned >= '$date_today' AND date_returned <= '$construct' AND return_status = ''";
     $stmt = $conn->prepare($sql);
     $stmt->execute();
+    $c = 0;
 	if($stmt->rowCount() > 0){
     //GET FOR RETURN
         foreach($stmt->fetchALL() as $row){
-            echo '<tr>';
+            $c++;
+            echo '<tr 
+            onclick="open_on_modal(&quot;'
+            .$row['id'].'~!~'
+            .$row['id_no'].'~!~'
+            .$row['name'].'~!~'
+            .$row['violation'].'~!~'
+            .$row['details'].'~!~'
+            .$row['remarks'].'~!~'
+            .$row['return_status'].'~!~'
+            .$row['return_remarks'].'~!~'.
+            'for_return'.
+            '&quot;)" style="cursor:pointer;">';
+            echo '<td>'.$c.'</td>';
             echo '<td>'.$row['id_no'].'</td>';
             echo '<td>'.$row['name'].'</td>';
             echo '<td>'.$row['category'].'</td>';
@@ -34,18 +48,32 @@ if($method == 'for_return_employees'){
         }
 }else{
     echo '<tr>';
-    echo '<td colspan="14" style="text-align:center;">NO DATA</td>';
+    echo '<td colspan="17" style="text-align:center;">NO DATA</td>';
     echo '</tr>';
 }
 }
 
 if($method == 'not_returned_employees'){
-    $sql = "SELECT *FROM ir_memo WHERE return_status = '' OR return_status = '0' AND date_return <= '$date_today'";
+    $sql = "SELECT *FROM ir_memo WHERE return_status = '0' OR return_status = '' ";
     $stmt = $conn->prepare($sql);
     $stmt->execute();
+    $c = 0;
     if($stmt->rowCount() > 0){
         foreach($stmt->fetchALL() as $row){
-            echo '<tr>';
+            $c++;
+            echo '<tr 
+            onclick="open_on_modal(&quot;'
+            .$row['id'].'~!~'
+            .$row['id_no'].'~!~'
+            .$row['name'].'~!~'
+            .$row['violation'].'~!~'
+            .$row['details'].'~!~'
+            .$row['remarks'].'~!~'
+            .$row['return_status'].'~!~'
+            .$row['return_remarks'].'~!~'.
+            'not_return'.
+            '&quot;)" style="cursor:pointer;">';
+            echo '<td>'.$c.'</td>';
             echo '<td>'.$row['id_no'].'</td>';
             echo '<td>'.$row['name'].'</td>';
             echo '<td>'.$row['category'].'</td>';
@@ -66,18 +94,32 @@ if($method == 'not_returned_employees'){
         }
 }else{
     echo '<tr>';
-    echo '<td colspan="14" style="text-align:center;">NO DATA</td>';
+    echo '<td colspan="17" style="text-align:center;">NO DATA</td>';
     echo '</tr>';
 }
 }
 
 if($method == 'returned'){
-    $sql = "SELECT *FROM ir_memo WHERE return_status = '1' AND date_return <= '$date_today'";
+    $sql = "SELECT *FROM ir_memo WHERE return_status = '1'";
     $stmt = $conn->prepare($sql);
     $stmt->execute();
+    $c = 0;
     if($stmt->rowCount() > 0){
         foreach($stmt->fetchALL() as $row){
-            echo '<tr>';
+            $c++;
+            echo '<tr 
+            onclick="open_on_modal(&quot;'
+            .$row['id'].'~!~'
+            .$row['id_no'].'~!~'
+            .$row['name'].'~!~'
+            .$row['violation'].'~!~'
+            .$row['details'].'~!~'
+            .$row['remarks'].'~!~'
+            .$row['return_status'].'~!~'
+            .$row['return_remarks'].'~!~'.
+            'returned'.
+            '&quot;)" style="cursor:pointer;">';
+            echo '<td>'.$c.'</td>';
             echo '<td>'.$row['id_no'].'</td>';
             echo '<td>'.$row['name'].'</td>';
             echo '<td>'.$row['category'].'</td>';
@@ -98,8 +140,24 @@ if($method == 'returned'){
         }
 }else{
     echo '<tr>';
-    echo '<td colspan="14" style="text-align:center;">NO DATA</td>';
+    echo '<td colspan="17" style="text-align:center;">NO DATA</td>';
     echo '</tr>';
 }
+}
+
+
+if($method == 'update_return_status'){
+    // VARIABLES
+    $record_id = $_POST['rec_id'];
+    $return_status = $_POST['return_status'];
+    $return_remarks = $_POST['return_remarks'];
+    // QUERY 
+    $updateQL = "UPDATE ir_memo SET return_status = '$return_status', return_remarks = '$return_remarks' WHERE id = '$record_id'";
+    $stmt = $conn->prepare($updateQL);
+    if($stmt->execute()){
+        echo 'success';
+    }else{
+        echo 'fail';
+    }
 }
 ?>
